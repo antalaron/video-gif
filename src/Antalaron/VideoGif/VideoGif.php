@@ -25,7 +25,7 @@ use Gregwar\Image\Image;
  */
 class VideoGif
 {
-    const VERSION = '0.1.0';
+    const VERSION = '0.1.1';
 
     /**
      * @var string
@@ -77,8 +77,12 @@ class VideoGif
         $width = $width ?: $this->defaults['width'];
         $height = $height ?: $this->defaults['height'];
 
-        $ffmpeg = FFMpeg::create();
-        $ffprobe = FFProbe::create();
+        try {
+            $ffmpeg = FFMpeg::create();
+            $ffprobe = FFProbe::create();
+        } catch (\Exception $e) {
+            throw new VideoException('Cannot start FFMpeg or FFProbe', 0, $e);
+        }
 
         try {
             // Determine the duration of the video
