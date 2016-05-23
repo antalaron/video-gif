@@ -1,0 +1,23 @@
+{
+    "name": "antalaron/video-gif",
+    "type": "library",
+    "description": "PHP library to create animated gif thumbnails for videos",
+    "keywords": ["video processing", "video", "thumbnail", "gif", "animated gif"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Antal Áron",
+            "email": "antalaron@antalaron.hu"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "sybio/gif-creator": "1.0",
+        "gregwar/image": "2.*",
+        "php-ffmpeg/php-ffmpeg": "0.6.*"
+    }
+}

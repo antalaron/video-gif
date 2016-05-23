@@ -1,0 +1,4 @@
+composer.lock
+vendor/
+example/video.mp4
+example/video.gif
