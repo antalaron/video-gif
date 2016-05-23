@@ -59,16 +59,18 @@ class VideoGif
      *
      * This method creates the thumbnail from the video.
      *
-     * @param string $videoFile     Video file to process
-     * @param string $thumbnailFile Output gif
-     * @param int    $count         Number of frames to use
-     * @param int    $interval      The interval beetween the frames of the gif
-     * @param int    $width         Width of the gif
-     * @param int    $height        Height of the gif
+     * @param string   $videoFile     Video file to process
+     * @param string   $thumbnailFile Output gif
+     * @param int|null $count         Number of frames to use
+     * @param int|null $interval      The interval beetween the frames of the gif
+     * @param int|null $width         Width of the gif
+     * @param int|null $height        Height of the gif
+     * @param int|null $start         The start of the video part
+     * @param int|null $end           The end of the video part
      *
      * @throws VideoException If error during procession or writing.
      */
-    public function create($videoFile, $thumbnailFile, $count = null, $interval = null, $width = null, $height = null)
+    public function create($videoFile, $thumbnailFile, $count = null, $interval = null, $width = null, $height = null, $start = null, $end = null)
     {
         $count = $count ?: $this->defaults['count'];
         $interval = $interval ?: $this->defaults['interval'];
@@ -87,7 +89,12 @@ class VideoGif
             throw new VideoException(sprintf('Cannot determine the duration of %s', $videoFile), 0, $e);
         }
 
-        $delay = (float) $duration / ($count + 1);
+        // If invalid start or end time, assume it is the start and the end
+        // of the video.
+        $start = max(0, $start ?: 0);
+        $end = min($duration, $end ?: $duration);
+
+        $delay = (float) ($end - $start) / ($count + 1);
 
         $video = $ffmpeg->open($videoFile);
         if (!file_exists($this->tmpDir.'/video-gif')) {
@@ -101,7 +108,7 @@ class VideoGif
             mkdir($hashDir, 0777, true);
         }
 
-        $pos = 0;
+        $pos = $start;
         $frames = array();
         $durations = array();
 
