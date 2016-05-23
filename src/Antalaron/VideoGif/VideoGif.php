@@ -35,12 +35,12 @@ class VideoGif
     /**
      * @var array
      */
-    private $defaults = [
+    private $defaults = array(
         'width' => 720,
         'height' => 404,
         'count' => 5,
         'interval' => 50,
-    ];
+    );
 
     /**
      * Constructor.
@@ -48,7 +48,7 @@ class VideoGif
      * @param string $tmpDir   Temp direcory path
      * @param array  $defaults The defaults
      */
-    public function __construct($tmpDir = '/tmp', $defaults = [])
+    public function __construct($tmpDir = '/tmp', $defaults = array())
     {
         $this->tmpDir = ltrim($tmpDir, '/');
         $this->defaults = array_merge($this->defaults, $defaults);
@@ -102,8 +102,8 @@ class VideoGif
         }
 
         $pos = 0;
-        $frames = [];
-        $durations = [];
+        $frames = array();
+        $durations = array();
 
         // Grab frames
         for ($i = 0; $i < $count; ++$i) {
