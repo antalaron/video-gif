@@ -101,13 +101,8 @@ class VideoGif
         $delay = (float) ($end - $start) / ($count + 1);
 
         $video = $ffmpeg->open($videoFile);
-        if (!file_exists($this->tmpDir.'/video-gif')) {
-            mkdir($this->tmpDir.'/video-gif', 0777, true);
-        }
 
-        $hash = md5($videoFile.time());
-
-        $hashDir = $this->tmpDir.'/video-gif/'.$hash;
+        $hashDir = $this->tmpDir.'/video-gif/'.md5($videoFile.time());
         if (!file_exists($hashDir)) {
             mkdir($hashDir, 0777, true);
         }
