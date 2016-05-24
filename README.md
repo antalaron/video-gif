@@ -9,7 +9,7 @@ A PHP library to create animated gif thumbnails for videos.
 This library requires a working FFMpeg install. You will need both FFMpeg and FFProbe binaries to use it.
 Be sure that these binaries can be located with system PATH.
 
-### Known issues :
+### Known issues
 
 - _to be written_
 
